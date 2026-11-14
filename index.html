@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f0e4">
+  <title>孵化事务所 · AI伙伴孵化大会</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23445440' d='M12 3h8v3h4v5h3v14h-3v4H8v-4H5V11h3V6h4z'/%3E%3Cpath fill='%23d8e3b4' d='M12 6h8v3h3v5h2v9h-3v4H10v-4H7v-9h2V9h3z'/%3E%3Cpath fill='%2380a172' d='M17 11h4v4h-4zM11 19h5v5h-5z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="孵化事务所首页"><span class="brand-egg" aria-hidden="true"></span><span><strong>孵化事务所</strong><small>AI MONSTER HATCHERY</small></span></a>
+      <nav class="main-nav" aria-label="页面导航">
+        <button class="nav-item active" id="lab-tab" type="button" aria-pressed="true">孵化台</button>
+        <button class="nav-item" id="dex-tab" type="button" aria-pressed="false">怪兽图鉴 <span>65</span></button>
+      <a class="nav-item nav-link" href="/leaderboard" target="_blank" rel="noopener">排行榜 ↗</a></nav>
+      <div class="header-note"><span class="status-light"></span><span id="header-status">连接活动中</span> <span class="edition">PIXEL EDITION / 65</span></div>
+    </header>
+
+    <main>
+      <section id="entry-view" class="entry-view" aria-labelledby="entry-title">
+        <div class="entry-art" aria-hidden="true"><span class="brand-egg"></span><span>65 个伙伴，等待初次见面。</span></div>
+        <div class="entry-panel"><p class="eyebrow">YOUR FIRST LITTLE MIRACLE.</p><h1 id="entry-title">欢迎来到孵化事务所</h1><p class="entry-intro">填写真实姓名，选择一颗蛋，迎接你的第一位伙伴。</p>
+          <form id="join-form"><label for="real-name">真实姓名</label><input id="real-name" name="name" autocomplete="name" maxlength="40" required placeholder="请输入真实姓名"><p class="entry-rule">同一姓名只以最早一次正式孵化的分数进入排行榜，后续试玩不会覆盖。姓名用于判重，公开榜单仅显示脱敏姓名。</p><button id="join-button" class="hatch-button" type="submit" disabled>连接活动中…</button></form>
+          <p id="entry-status" class="entry-status" role="status">正在恢复你的参与状态…</p><button type="button" class="back-button" id="connection-retry" hidden>重新连接</button>
+          <a class="entry-board-link" href="/leaderboard" target="_blank" rel="noopener">先看看公开排行榜 ↗</a>
+        </div>
+      </section>
+      <div class="activity-error" id="activity-error" role="alert" hidden><p id="activity-error-text"></p><button type="button" id="result-retry" hidden>重新载入已保存结果</button></div>
+      <div id="game-shell" hidden>
+        <section class="session-panel" aria-label="参与状态"><div><span class="session-label">当前参与者</span><strong id="player-name"></strong><span id="test-badge" class="test-badge" hidden>测试会话 · 不占正式名额</span></div><button type="button" id="logout-player" class="session-logout">退出</button><p id="official-summary">首次孵化将计入排行榜。之后可以继续自由试玩。</p><a href="/leaderboard" target="_blank" rel="noopener">查看排行榜 ↗</a></section>
+      <section id="lab-view" aria-label="孵化工作台">
+        <div class="page-heading"><div><p class="eyebrow">A LITTLE EGG, A BIG SURPRISE.</p><h1>今天，会孵出谁？<span class="title-spark" aria-hidden="true">✦</span></h1><p class="intro">成年版与 Q 版分别保留。形象随机，分数独立生成。</p></div><div class="discovery"><span>本次已发现</span><strong><b id="discovered-count">00</b><i>/ 65</i></strong></div></div>
+
+        <div class="workbench">
+          <div class="stage-column">
+            <div class="scene-frame">
+              <div class="scene-top"><span class="room-label"><span class="tiny-square"></span><strong id="scene-room-name">苔藓温室</strong></span><span class="scene-code">HATCHING ROOM / <b id="room-index">01</b></span></div>
+              <div class="dialogue-dock" aria-label="角色对话"><div class="scene-tip" id="scene-tip">蛋里似乎有点动静…</div><div class="interaction-bubble" id="interaction-bubble" role="status" aria-live="polite" hidden></div></div>
+              <div class="scene-canvas-wrap"><canvas id="scene-canvas" width="256" height="160" aria-label="像素孵化室：斑点蛋正在孵化舱内等待"></canvas><button id="character-touch" class="character-touch" type="button" hidden><canvas id="scene-character" class="scene-character" width="384" height="512" role="img" aria-label="角色待机形象"></canvas></button><div id="reaction-particles" class="reaction-particles" aria-hidden="true"></div><div class="temperature-stamp"><span class="thermo-icon" aria-hidden="true"></span><b id="scene-temperature">28°C</b></div><button id="inspect-character" class="inspect-character" type="button" hidden>放大形象 ↗</button></div>
+              <div class="stage-bottom" id="stage-bottom"><div class="phase-icon" aria-hidden="true">◇</div><div><span class="sub-label" id="phase-label">一切就绪</span><p id="phase-description">小小的蛋，大大的可能。</p></div><span class="stage-ready" id="stage-status">READY</span></div>
+              <div id="character-actions" class="character-actions" aria-label="角色互动" hidden><button type="button" data-interaction="greet">✦ 打招呼</button><button type="button" data-interaction="blink">◡ 眨眨眼</button><button type="button" data-interaction="walk">↔ 走一走</button><button type="button" data-interaction="pet">♡ 摸摸头</button><button type="button" data-interaction="feed">◈ 喂点心</button></div>
+              <div class="hatch-progress" id="hatch-progress" role="progressbar" aria-label="孵化进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden><span id="hatch-progress-fill"></span></div>
+            </div>
+            <section class="probability-panel" aria-label="当前条件的形象稀有度概率"><div class="probability-heading"><span>这次的惊喜分布</span><span class="subtle-note">形象与分数分别随机</span></div><div class="probability-bar" id="probability-bar" aria-hidden="true"></div><div class="probability-legend" id="probability-legend"></div><p class="score-rule">随机分数 <strong>100–740</strong> 分 · 同一形象也能抽出不同分数</p></section>
+          </div>
+
+          <form class="controls-panel" id="hatch-form">
+            <fieldset id="conditions-fieldset">
+              <div class="control-section"><div class="section-label"><span class="step-number">01</span><h2>挑一颗怪兽蛋</h2><span id="selected-egg-tag" class="section-aside">均衡探索</span></div><div class="egg-grid" id="egg-options"></div><p class="option-note" id="egg-note">一切惊喜的起点</p></div>
+              <div class="control-section temperature-section"><div class="section-label"><span class="step-number">02</span><label for="temperature">给它一点温度</label><output for="temperature" id="temperature-output">28<span>°C</span></output></div><input type="range" min="16" max="42" value="28" step="1" id="temperature" aria-label="孵化温度"><div class="range-labels"><span>16°C · 凉爽</span><span id="comfort-label">温暖舒适</span><span>42°C · 炽热</span></div></div>
+              <div class="control-section"><div class="section-label"><span class="step-number">03</span><h2>选择孵化室</h2></div><div class="room-grid" id="room-options"></div></div>
+            </fieldset>
+            <div class="hatch-action"><button type="submit" id="hatch-button" class="hatch-button" disabled><span class="button-star" aria-hidden="true">✦</span><span id="hatch-button-label">正在准备角色</span><span aria-hidden="true">→</span></button><button type="button" id="autoplay-button" class="autoplay-button" aria-pressed="false" disabled>自动试玩</button><p id="playback-note" class="action-note">首次正式孵化需主动开始 · 后续试玩不计排名</p></div>
+          </form>
+        </div>
+
+        <section class="recent-section" aria-label="本页孵化记录"><div class="recent-heading"><div><span class="eyebrow">YOUR LITTLE DISCOVERIES</span><h2>本页孵化记录 <span id="hatch-count">0</span></h2></div><div class="best-score">本页最高 <strong id="best-score">—</strong><span>分</span></div></div><div class="history-grid" id="history-grid"><div class="history-empty"><span class="empty-egg" aria-hidden="true"></span><div><strong>第一位伙伴，还在蛋里。</strong><p>开始孵化后，在这里收集每一次小小的惊喜。</p></div><span class="empty-trail" aria-hidden="true">· · · ✦</span></div></div></section>
+      </section>
+
+      <section id="dex-view" aria-label="怪兽图鉴" hidden>
+        <div class="page-heading"><div><p class="eyebrow">MEET ALL THE LITTLE POSSIBILITIES.</p><h1>65 款伙伴，各有模样<span class="title-spark" aria-hidden="true">✦</span></h1><p class="intro">保留成年版与 Q 版各自的比例。点击形象可放大查看，并体验专属动作。</p></div><button type="button" class="back-button" id="back-to-lab">← 回到孵化台</button></div>
+        <div class="dex-toolbar"><div class="tier-filters" id="tier-filters" aria-label="按形象版本筛选"></div><span class="dex-count" id="dex-count">全部 65 款</span></div>
+        <div class="dex-grid" id="dex-grid"></div>
+      </section>
+      </div>
+      <p class="sr-only" id="live-result" role="status" aria-live="polite"></p>
+    </main>
+    <footer class="footer"><span>好奇心，是最好的孵化条件。</span><details class="credits"><summary>角色与二创参考 ↗</summary><p>开源版本使用统一的占位角色图；角色设定参考梗鲸图库所标注的创作者，替换素材前请确认相应授权。<a href="https://aigengtu.com/refs" target="_blank" rel="noreferrer">查看AI设定出处</a></p></details></footer>
+  </div>
+  <dialog id="character-dialog" class="character-dialog" aria-labelledby="character-dialog-title"><button type="button" id="close-character-dialog" class="dialog-close" aria-label="关闭形象预览">×</button><h2 id="character-dialog-title"></h2><p id="dialog-load-state" class="dialog-load-state" role="status">正在载入形象…</p><button type="button" class="back-button" id="dialog-retry" hidden>重新载入</button><canvas id="character-dialog-canvas" width="384" height="512" role="img" aria-label="角色动作预览"></canvas><p id="dialog-motion-status" class="dialog-motion-status">待机</p><div id="dialog-character-actions" class="character-actions dialog-actions" aria-label="大图角色互动"><button type="button" data-dialog-interaction="greet">打招呼</button><button type="button" data-dialog-interaction="blink">眨眨眼</button><button type="button" data-dialog-interaction="walk">走一走</button><button type="button" data-dialog-interaction="pet">摸摸头</button><button type="button" data-dialog-interaction="feed">喂点心</button></div><p>分数在每次孵化时独立随机生成</p></dialog>
+  <noscript>请启用 JavaScript 后填写姓名并参加活动。</noscript>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>
